@@ -1,3 +1,7 @@
+'''
+    여기서 만들어진 함수를 news_db.py 에서 가져다 썼음
+'''
+
 import pymysql
 from selenium import webdriver
 import time, os, csv

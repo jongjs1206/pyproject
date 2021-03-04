@@ -15,7 +15,7 @@ conn = pymysql.connect(host='34.64.176.78', port=3306,
                        charset='utf8')
 
 cursor = conn.cursor()
-sql = "select idx,url from carphoto where price is null"
+sql = "select idx,url from intercar where price is null"
 cursor.execute(sql)
 urls = cursor.fetchall()
 
@@ -30,11 +30,15 @@ for idxurl in urls:
     seller = soup.select_one('div.seller-data div.seller-state b').text
 
     if price=='[판매완료]':
-        update_sql = "UPDATE carphoto SET title='{}',price=0,seller='{}' where idx={}".format(title, seller,idx)
+        update_sql = "UPDATE intercar SET title='{}',price=0,seller='{}' where idx={}".format(title, seller,idx)
     elif price=='[계약]':
-        update_sql = "UPDATE carphoto SET title='{}',price=1,seller='{}' where idx={}".format(title, seller, idx)
+        update_sql = "UPDATE intercar SET title='{}',price=1,seller='{}' where idx={}".format(title, seller, idx)
+    elif price=='[가격상담]':
+        update_sql = "UPDATE intercar SET title='{}',price=2,seller='{}' where idx={}".format(title, seller, idx)
+    elif price=='[보류]':
+        update_sql = "UPDATE intercar SET title='{}',price=3,seller='{}' where idx={}".format(title, seller, idx)
     else:
-        update_sql = "UPDATE carphoto SET title='{}',price={},seller='{}' where idx={}".format(title,price,seller,idx)
+        update_sql = "UPDATE intercar SET title='{}',price={},seller='{}' where idx={}".format(title,price,seller,idx)
     print(update_sql)
     cursor.execute(update_sql)
     conn.commit()

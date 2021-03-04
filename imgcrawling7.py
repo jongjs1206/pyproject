@@ -1,6 +1,6 @@
 '''
     7단계
-    차종에 따른 grade 테이블 상의 g_id 확인 및 carphoto 테이블에 입력(car_num 컬럼)
+    차종에 따른 grade 테이블 상의 g_id 확인 및 intercar 테이블에 입력(car_num 컬럼)
 '''
 
 import pymysql,time
@@ -62,7 +62,7 @@ conn = pymysql.connect(host='34.64.176.78', port=3306,
                        db='mycar', user='root', password='admin1234',
                        charset='utf8')
 cursor = conn.cursor()
-name_sql = "select title from carphoto where car_num is null"
+name_sql = "select title from intercar where car_num is null"
 cursor.execute(name_sql)
 names = cursor.fetchall()
 
@@ -72,14 +72,14 @@ for carname in names:
     try:
         numnum = selectDB(carname[0])
     except:
-        delete_sql = "delete from carphoto where title='{}'".format(carname[0])
+        delete_sql = "delete from intercar where title='{}'".format(carname[0])
         cursor.execute(delete_sql)
         conn.commit()
         print(carname[0], '삭제')
     else:
         numnum = selectDB(carname[0])
         print(numnum)
-        insert_carnum_sql = "UPDATE carphoto SET car_num='{}' WHERE title='{}'".format(numnum,carname[0])
+        insert_carnum_sql = "UPDATE intercar SET car_num='{}' WHERE title='{}'".format(numnum,carname[0])
         cursor.execute(insert_carnum_sql)
         conn.commit()
     print('cnt : ', cnt)

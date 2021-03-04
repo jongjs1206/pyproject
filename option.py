@@ -1,3 +1,8 @@
+'''
+    재상이가 짜준 option 가져오는 함수 (imgcrawling6.py에서 가져다 사용했음)
+'''
+
+
 from selenium import webdriver
 import time, os, csv
 from bs4 import BeautifulSoup
@@ -5,7 +10,7 @@ from bs4 import BeautifulSoup
 driver = webdriver.Chrome('./webdriver/chromedriver')
 driver.implicitly_wait(1)
 
-driver.get('https://www.bobaedream.co.kr/mycar/mycar_view.php?no=2041523&gubun=K')
+driver.get('https://www.bobaedream.co.kr/mycar/mycar_view.php?no=2041523&gubun=I')
 time.sleep(1)
 
 html = driver.page_source

@@ -21,7 +21,7 @@ conn = pymysql.connect(host='34.64.176.78', port=3306,
                        charset='utf8')
 
 cursor = conn.cursor()
-sql = "select idx,url from carphoto where photourl is null"
+sql = "select idx,url from intercar where photourl is null"
 cursor.execute(sql)
 urls = cursor.fetchall()
 
@@ -83,7 +83,7 @@ for idxurl in urls:
 
     # 12) DB의 carphoto 테이블에 photourl을 저장
     print(bucket_url)
-    update_sql = "UPDATE carphoto SET photourl='{}' where idx={}".format(bucket_url,idx)
+    update_sql = "UPDATE intercar SET photourl='{}' where idx={}".format(bucket_url,idx)
     cursor.execute(update_sql)
     conn.commit()
 

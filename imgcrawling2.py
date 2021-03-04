@@ -1,6 +1,7 @@
 '''
     2단계
     각 페이지 별 idx 번호를 부여함 (에러 발생으로 인해 어디까지 진행했는지 확인하기 위함)
+    idx 이전단계에서 부여했을 경우 생략
 '''
 
 # 1) 필요한 라이브러리 import
@@ -15,7 +16,7 @@ conn = pymysql.connect(host='34.64.176.78', port=3306,
                        charset='utf8')
 
 cursor = conn.cursor()
-sql = "select title,url from carphoto where idx is null"
+sql = "select title,url from intercar where idx is null"
 cursor.execute(sql)
 
 rows = cursor.fetchall()
@@ -25,7 +26,7 @@ cnt = 776
 
 for row in rows:
     title,url = row
-    idx_sql = "update carphoto set idx={} where url='{}'".format(cnt,url)
+    idx_sql = "update intercar set idx={} where url='{}'".format(cnt,url)
     # print(insert_sql)
     print(idx_sql)
     # time.sleep(1)

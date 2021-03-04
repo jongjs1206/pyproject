@@ -9,10 +9,11 @@ from urllib.request import urlopen
 from google.cloud import storage as gcs
 import os, pymysql
 
+cnt = 1
 # 2) 보배드림 사이트에서 차량 목록 페이지 주소 가져오기
-for i in range(180, 191):
-    url = "https://www.bobaedream.co.kr/mycar/mycar_list.php?gubun=K&page={}&order=S11&view_size=20".format(str(i))
-    print(i)
+for i in range(1, 237):
+    url = "https://www.bobaedream.co.kr/mycar/mycar_list.php?gubun=I&page={}&order=S11&view_size=20".format(str(i))
+    print(i, "page")
     # 3) url 열고 bs4로 파싱 및 이미지 주소 얻기
     html = urlopen(url)
     soup = bs(html, "html.parser")
@@ -28,10 +29,14 @@ for i in range(180, 191):
                                db='mycar', user='root', password='admin1234',
                                charset='utf8')
 
+
         cursor = conn.cursor()
-        sql = "insert into carphoto (title, url) values ('{}', '{}')".format(title, url)
+        sql = "insert into intercar (idx, title, url) values ('{}', '{}', '{}')".format(cnt, title, url)
         cursor.execute(sql)
         conn.commit()
 
+        cnt = cnt + 1
+
         cursor.close()
         conn.close()
+print('완료')

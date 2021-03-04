@@ -15,7 +15,7 @@ conn = pymysql.connect(host='34.64.176.78', port=3306,
                        charset='utf8')
 
 cursor = conn.cursor()
-sql = "select idx,url from carphoto where option is null"
+sql = "select idx,url from intercar where option is null"
 cursor.execute(sql)
 urls = cursor.fetchall()
 
@@ -31,7 +31,7 @@ for idxurl in urls:
     try:
         write_data = datas[2].text
     except:
-        delete_sql = "delete from carphoto where idx='{}'".format(idx)
+        delete_sql = "delete from intercar where idx='{}'".format(idx)
         cursor.execute(delete_sql)
         conn.commit()
         print(idx, '삭제')
@@ -76,7 +76,7 @@ for idxurl in urls:
 
     option_i = op1 + "/" + op2 + "/" + op3 + "/" + op4 + "/" + op5
 
-    insert_sql = "UPDATE carphoto SET accident='{}', w_date='{}', option='{}', content='{}' WHERE idx='{}'".format(thtd_tmp,w_date,option_i,txt,idx)
+    insert_sql = "UPDATE intercar SET accident='{}', w_date='{}', option='{}', content='{}' WHERE idx='{}'".format(thtd_tmp,w_date,option_i,txt,idx)
     # print(insert_sql2)
     cursor.execute(insert_sql)
     conn.commit()

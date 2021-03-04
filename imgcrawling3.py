@@ -14,8 +14,8 @@ conn = pymysql.connect(host='34.64.176.78', port=3306,
                        charset='utf8')
 
 cursor = conn.cursor()
-sql = "select idx, url from carphoto"
-# sql = "select idx,url from carphoto where old is null"
+# sql = "select idx, url from carphoto"
+sql = "select idx,url from intercar where old is null"
 cursor.execute(sql)
 urls = cursor.fetchall()
 
@@ -29,7 +29,7 @@ for idxurl in urls:
     # time.sleep(1)
     tds = soup.select('div.info-basic div.tbl-01 tr>td')
 
-    update_sql = "update carphoto set old='{}',baeki='{}',mile='{}',color='{}',gear='{}',guarantee='{}',fuel='{}' where url='{}'".format(
+    update_sql = "update intercar set old='{}',baeki='{}',mile='{}',color='{}',gear='{}',guarantee='{}',fuel='{}' where url='{}'".format(
         tds[0].text, tds[1].text, tds[2].text, tds[3].text, tds[4].text, tds[5].text, tds[6].text, url)
     cursor.execute(update_sql)
     time.sleep(1)
@@ -38,6 +38,6 @@ for idxurl in urls:
 
 cursor.close()
 conn.close()
-
+print('완료')
 
 
